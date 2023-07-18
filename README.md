@@ -16,3 +16,8 @@ Once the project has been built, do the following from the `hexachord` directory
 # Software documentation
 
 See the [presentation page](https://louisbigo.com/hexachord).
+
+# Extensions and improvements
+1. Add rotations of the Tonnetz, mirroring, and default industry standard Tonnetz representation. (Currently under development)
+2. Add a way to save the Tonnetz as a video.
+3. Add multiple Tonnetz layers for Jazz chords.
