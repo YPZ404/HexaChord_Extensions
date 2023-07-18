@@ -110,6 +110,10 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
 	private boolean _jumped = false;
 	
 	private static InfoBox singleton = null;
+
+    // additional buttons for rotation and mirroring
+    private JButton _mirror_but;
+    private JButton _rotate_but;
 	
 	public static InfoBox getInstance(){
 		if (singleton == null) {
@@ -303,6 +307,9 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         _HConstraint_Compliance_but = new JButton("Constraint Compliance");
         _musification_but = new JButton("Musification");
         _path_transformation_but = new JButton("Compute transformation");
+
+        _rotate_but = new JButton("rotate");
+        _mirror_but = new JButton("mirror");
         
         c.fill=GridBagConstraints.HORIZONTAL;
         
@@ -325,12 +332,16 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         c.gridy++;
         c.gridx=0;
         c.gridwidth=1;
-        _jpanel.add(_circle_but_1,c);
+        _jpanel.add(_rotate_but,c);
         c.gridx=1;
-        _jpanel.add(_circle_but_5,c);
+        _jpanel.add(_mirror_but,c);
         c.gridx=2;
-        _jpanel.add(_3D_complex_but,c);
+        _jpanel.add(_circle_but_1,c);
         c.gridx=3;
+        _jpanel.add(_circle_but_5,c);
+        c.gridx=4;
+        _jpanel.add(_3D_complex_but,c);
+        c.gridx=5;
         //c.gridwidth=2;
         _jpanel.add(_graph_but,c);
         c.gridy++;
@@ -561,6 +572,8 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         _origin_complex_box.addActionListener(h);
         _destination_complex_box.addActionListener(h);
         _path_transformation_but.addActionListener(h);
+        _mirror_but.addActionListener(h);
+        _rotate_but.addActionListener(h);
 	}
 
 	public void check_tona_box(JComboBox tona_box, int N){
