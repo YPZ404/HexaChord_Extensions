@@ -131,7 +131,7 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
 		_parameters = Parameters.getInstance();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(500,750));
+        setPreferredSize(new Dimension(500,800));
         setResizable(true);
         setLocation(1000,50);
         setFocusable(true);
@@ -332,18 +332,22 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         c.gridy++;
         c.gridx=0;
         c.gridwidth=1;
-        _jpanel.add(_rotate_but,c);
-        c.gridx=1;
-        _jpanel.add(_mirror_but,c);
-        c.gridx=2;
         _jpanel.add(_circle_but_1,c);
-        c.gridx=3;
+        c.gridx=1;
         _jpanel.add(_circle_but_5,c);
-        c.gridx=4;
+        c.gridx=2;
         _jpanel.add(_3D_complex_but,c);
-        c.gridx=5;
+        c.gridx=3;
         //c.gridwidth=2;
         _jpanel.add(_graph_but,c);
+        c.gridy++;
+
+        c.gridy++;
+        c.gridx=0;
+        c.gridwidth=2;
+        _jpanel.add(_rotate_but,c);
+        c.gridx=2;
+        _jpanel.add(_mirror_but,c);
         c.gridy++;
 
         c.gridx=0;
