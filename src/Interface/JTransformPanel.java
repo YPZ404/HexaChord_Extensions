@@ -139,6 +139,13 @@ public class JTransformPanel extends JComponent implements MouseInputListener, M
         on_transformation();
     }
 
+    // public access helper function to rotate the grid by degrees
+    // This function takes degrees as input
+    public void rotateByDegrees(float degrees) {
+        float radians = (float) Math.toRadians(degrees);
+        this.rotate(radians);
+    }
+
     private void scale(float dz) {
         _trans.unscale(_zoom);
         _zoom = Math.max(Math.min(_zoom*(1+dz),6f),0.4f);
@@ -284,7 +291,8 @@ public class JTransformPanel extends JComponent implements MouseInputListener, M
         case KeyEvent.VK_RIGHT:  translate(-10,0); break;
         case KeyEvent.VK_LEFT:   translate(10,0);  break;
         case KeyEvent.VK_SPACE:  untranslate(_trans); break;
-        case KeyEvent.VK_A:      switch_antialiasing(); break; 
+        case KeyEvent.VK_A:      switch_antialiasing(); break;
+        case KeyEvent.VK_Z:      rotate((float)Math.PI/2); break;  // Enabling this line will make the grid rotate by 90 degrees when pressing Z
         }
         repaint();
     }

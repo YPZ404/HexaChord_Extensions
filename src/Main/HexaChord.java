@@ -794,6 +794,11 @@ public class HexaChord implements KeyListener, ComponentListener, ActionListener
 				for (GridFrame f : _parameters.get_frame_list())
 					f.get_p().keyPressed(evt);
 			break;
+		// additional case for rotation of the grid when pressing Z
+		case KeyEvent.VK_Z:
+			for (GridFrame f : _parameters.get_frame_list())
+				f.get_p().rotateByDegrees(90);
+			break;
 		default:
 			for (GridFrame f : _parameters.get_frame_list())
 				f.get_p().keyPressed(evt);
