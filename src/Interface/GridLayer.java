@@ -41,9 +41,9 @@ public class GridLayer extends Layer {
 	}
 
     final public void compute_dir_vectors() {
-    	_orig = gridToPixel(0,0);
+    	_orig = gridToPixel(-1,1);
     	_dir1 = gridToPixel(1,0);
-    	_dir2 = gridToPixel(0,1);
+    	_dir2 = gridToPixel(0,-1);
     	_dir1.untranslate(_orig);
     	_dir2.untranslate(_orig);
     }
