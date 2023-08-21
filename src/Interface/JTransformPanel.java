@@ -42,6 +42,7 @@ public class JTransformPanel extends JComponent implements MouseInputListener, M
 //	private HashSet<Integer> layers_to_draw = new HashSet<Integer>();
 	protected Parameters _parameters;
 	protected HexaChord _hexaChord;
+    public boolean _isMirrored = false;             // Boolean to check if the grid is mirrored or not
 	
 	public JTransformPanel(HexaChord h, Parameters p) {
 		setBackground(Color.white);
@@ -232,15 +233,32 @@ public class JTransformPanel extends JComponent implements MouseInputListener, M
         return p;
     }
 
+    // Helper function to toggle the mirroring of the grid
+    // This function changes the value of the boolean _isMirrored
+    public void toggleMirroring() {
+        _isMirrored = !_isMirrored;
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-        if (Parameters.getInstance().is_musification()){
-        	on_transformation();		// Commentée car ça fait boucler le programme        	
+
+        // Uses the Graphics2D object to draw the image for mirroring with more flexibility
+        Graphics2D g2d = (Graphics2D) g;
+
+        if (_isMirrored) {
+            g2d.scale(-1, 1);
+            g2d.translate(-_w, 0);
         }
+
+        if (Parameters.getInstance().is_musification()) {
+            on_transformation(); // Commentée car ça fait boucler le programme
+        }
+
         _graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, _antialiasing?RenderingHints.VALUE_ANTIALIAS_ON:RenderingHints.VALUE_ANTIALIAS_OFF);
         _graph.setColor(getBackground());
-        _graph.fillRect(0,0,_w,_h);
+        _graph.fillRect(0, 0, _w, _h);
+
+        g2d.drawImage(_image, 0, 0, this);
     }
 
     // Mouse Events Listener    
@@ -293,6 +311,7 @@ public class JTransformPanel extends JComponent implements MouseInputListener, M
         case KeyEvent.VK_SPACE:  untranslate(_trans); break;
         case KeyEvent.VK_A:      switch_antialiasing(); break;
         case KeyEvent.VK_Z:      rotate((float)Math.PI/2); break;  // Enabling this line will make the grid rotate by 90 degrees when pressing Z
+        case KeyEvent.VK_X:      toggleMirroring(); repaint(); break; // Enabling this line will make the grid rotate by -90 degrees when pressing X
         }
         repaint();
     }
