@@ -1,9 +1,14 @@
 package Model.Music;
 
+import Interface.JTransformPanel;
+
 public class Note {
-	
+
+
+
+
 	private int _pitch;
-	
+
 	public Note(int pitch) {
 		_pitch = pitch;
 	}
@@ -11,50 +16,89 @@ public class Note {
 	public int get_pitch() {
 		return _pitch;
 	}
-	
+
 	public static String get_name(int pitch){
 		return get_name(pitch, 'E');
 	}
-	
+
 	public static String get_name(int pitch, char language) {
-			
+
 		if (language == 'E') {
-			switch (pitch%12) {
-			case 0:  return "C";
-			case 1:  return "C#";
-			case 2:  return "D";
-			case 3:  return "Eb";
-			case 4:  return "E";
-			case 5:  return "F";
-			case 6:  return "F#";
-			case 7:  return "G";
-			case 8:  return "Ab";
-			case 9:  return "A";
-			case 10: return "Bb";
-			case 11: return "B";
-			default: return "??";
+
+
+
+			if (JTransformPanel._isMirrored) {
+				switch (pitch % 12) {
+					case 0:
+						return "Ɔ";
+					case 1:
+						return "#Ɔ";
+					case 2:
+						return "ꓷ";
+					case 3:
+						return "dƎ";
+					case 4:
+						return "Ǝ";
+					case 5:
+						return "ꟻ";
+					case 6:
+						return "#ꟻ";
+					case 7:
+						return "ວ";
+					case 8:
+						return "dA";
+					case 9:
+						return "A";
+					case 10:
+						return "dꓭ";
+					case 11:
+						return "ꓭ";
+					default:
+						return "??";
+
+				}
+			}
+			else
+			{
+				switch (pitch%12) {
+					case 0:  return "C";
+					case 1:  return "C#";
+					case 2:  return "D";
+					case 3:  return "Eb";
+					case 4:  return "E";
+					case 5:  return "F";
+					case 6:  return "F#";
+					case 7:  return "G";
+					case 8:  return "Ab";
+					case 9:  return "A";
+					case 10: return "Bb";
+					case 11: return "B";
+					default: return "??";
+
+				}
+
 			}
 		}
 		else {
 			switch (pitch%12) {
-			case 0:  return "Do";
-			case 1:  return "Do#";
-			case 2:  return "R�";
-			case 3:  return "Mib";
-			case 4:  return "Mi";
-			case 5:  return "Fa";
-			case 6:  return "Fa#";
-			case 7:  return "Sol";
-			case 8:  return "Lab";
-			case 9:  return "La";
-			case 10: return "Sib";
-			case 11: return "Si";
-			default: return "??";
+				case 0:  return "Do";
+				case 1:  return "Do#";
+				case 2:  return "R�";
+				case 3:  return "Mib";
+				case 4:  return "Mi";
+				case 5:  return "Fa";
+				case 6:  return "Fa#";
+				case 7:  return "Sol";
+				case 8:  return "Lab";
+				case 9:  return "La";
+				case 10: return "Sib";
+				case 11: return "Si";
+				default: return "??";
 			}
-			
+
 		}
 	}
-	
+
 	public static int get_pitch_class(String note_name){
 		int pc;
 		switch(note_name.charAt(0)){
@@ -94,18 +138,18 @@ public class Note {
 		}
 		return pc;
 	}
-	
+
 	public static int pitch_class_symmetry(int pitch_class, float pitch_class_center){
 		assert (pitch_class_center%1 == 0 || pitch_class_center%1 == (float)0.5) : "pitch class center not conform : "+pitch_class_center;
 		float interval = pitch_class_center-pitch_class;
 		return (int)(24+pitch_class + 2*interval)%12;
 	}
-	
+
 	public static int get_closer_pitch_having_pitch_class(int original_pitch, int pitch_class){
 		int interval = Interval.smaller_distance_interval(pitch_class-original_pitch%12, 12);
-		
+
 		return original_pitch+interval;
 	}
-	
-	
+
+
 }
