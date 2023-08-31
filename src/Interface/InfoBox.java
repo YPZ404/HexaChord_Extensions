@@ -44,96 +44,102 @@ import Utils.Table;
 
 
 public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamListener {
-	
-	private static int Z12_TONNETZ_VIZU = 10;
-	private static int Z7_TONNETZ_VIZU = 2;
-	private static int TONALITY_VIZU = 0;
 
-	private static final long serialVersionUID = 1L;
-	private Parameters _parameters;
-	private JPanel _jpanel;
-	private JLabel _file_name_label;
-	private JLabel _d_chord_jlabel;
-	private JLabel _d_tonnetz_jlabel;
-	public JFileChooser _demo_file_chooser;
-	public JFileChooser _user_file_chooser;
-	public JComboBox _complex_box;
-	public JComboBox _chroma_tonnetz_box;
-	public JComboBox _hepta_tonnetz_box;
-	public JComboBox _tonality_box;
-	public JComboBox _tona_box;
-	public JComboBox _origin_tonnetz_box;
-	public JComboBox _destination_tonnetz_box;
-	public JComboBox _origin_complex_box;
-	public JComboBox _origin_tona_box;
-	public JComboBox _destination_complex_box;
-	public JComboBox _destination_tona_box;
-	public JButton _play_but;
-	public JButton _stop_but;
-	public JButton _record_but;
-	public JButton _load_demo_file_but;
-	public JButton _load_user_file_but;
-	
-	public JRadioButton _midi_file_mode_but;
-	public JRadioButton _KB_mode_but;
-	
-	public JButton _disp_complex_but;
-	public JButton _hide_complexes_but;
-	
-	public JButton _trace_but;
-	//public JButton _all_pitch_but;
-	public JButton _extra_voice_but;
-	//public JButton _subgrid_but;
-	public JButton _1_hexaCompliance_but;
-	public JButton _2_hexaCompliance_but;
-	public JButton _1_Compliance_but;
-	public JButton _2_Compliance_but;
-	public JComboBox _compactness_degree_box;
-	public JComboBox _dim_complex_box;
-	public JButton _compute_comp_but;
-	public JButton _abs_Compliance_but;
-	public JButton _HLarge_Compliance_but;
-	public JButton _HConstraint_Compliance_but;
-	public JButton _graph_but;
-	public JButton _circle_but_1;
-	public JButton _circle_but_5;
-	public JButton _3D_complex_but;
-	public JButton _musification_but;
-	public JButton _path_transformation_but;
-	public JSlider _speedSlider;
-	public JSlider _cursor;
-	
-	public JTextField _n_translation_field;
-	public JTextField _ne_translation_field;
-	public JTextField _rotation_field;
-	
-	private boolean _jumped = false;
-	
-	private static InfoBox singleton = null;
-	
-	public static InfoBox getInstance(){
-		if (singleton == null) {
-			singleton = new InfoBox();
-		}
-		return singleton;
-	}
-	
-	public InfoBox() {
-		super("HexaChord");
+    private static int Z12_TONNETZ_VIZU = 10;
+    private static int Z7_TONNETZ_VIZU = 2;
+    private static int TONALITY_VIZU = 0;
 
-		//_h = h;
-		//_h = HexaChord.getInstance();
-		//_parameters = p;
-		_parameters = Parameters.getInstance();
+    private static final long serialVersionUID = 1L;
+    private Parameters _parameters;
+    private JPanel _jpanel;
+    private JLabel _file_name_label;
+    private JLabel _d_chord_jlabel;
+    private JLabel _d_tonnetz_jlabel;
+    public JFileChooser _demo_file_chooser;
+    public JFileChooser _user_file_chooser;
+    public JComboBox _complex_box;
+    public JComboBox _chroma_tonnetz_box;
+    public JComboBox _hepta_tonnetz_box;
+    public JComboBox _tonality_box;
+    public JComboBox _tona_box;
+    public JComboBox _origin_tonnetz_box;
+    public JComboBox _destination_tonnetz_box;
+    public JComboBox _origin_complex_box;
+    public JComboBox _origin_tona_box;
+    public JComboBox _destination_complex_box;
+    public JComboBox _destination_tona_box;
+    public JButton _play_but;
+    public JButton _stop_but;
+    public JButton _record_but;
+    public JButton _load_demo_file_but;
+    public JButton _load_user_file_but;
+
+    public JRadioButton _midi_file_mode_but;
+    public JRadioButton _KB_mode_but;
+
+    public JButton _disp_complex_but;
+    public JButton _hide_complexes_but;
+
+    public JButton _trace_but;
+    //public JButton _all_pitch_but;
+    public JButton _extra_voice_but;
+    //public JButton _subgrid_but;
+    public JButton _1_hexaCompliance_but;
+    public JButton _2_hexaCompliance_but;
+    public JButton _1_Compliance_but;
+    public JButton _2_Compliance_but;
+    public JComboBox _compactness_degree_box;
+    public JComboBox _dim_complex_box;
+    public JButton _compute_comp_but;
+    public JButton _abs_Compliance_but;
+    public JButton _HLarge_Compliance_but;
+    public JButton _HConstraint_Compliance_but;
+    public JButton _graph_but;
+    public JButton _circle_but_1;
+    public JButton _circle_but_5;
+    public JButton _3D_complex_but;
+    public JButton _musification_but;
+    public JButton _path_transformation_but;
+    public JSlider _speedSlider;
+    public JSlider _cursor;
+
+    public JTextField _n_translation_field;
+    public JTextField _ne_translation_field;
+    public JTextField _rotation_field;
+
+    private boolean _jumped = false;
+
+    private static InfoBox singleton = null;
+
+    // additional buttons for rotation and mirroring
+    public JButton _mirror_but;
+    public JButton _rotate_but;
+
+    public boolean _mirror_but_pressed;
+
+    public static InfoBox getInstance(){
+        if (singleton == null) {
+            singleton = new InfoBox();
+        }
+        return singleton;
+    }
+
+    public InfoBox() {
+        super("HexaChord");
+
+        //_h = h;
+        //_h = HexaChord.getInstance();
+        //_parameters = p;
+        _parameters = Parameters.getInstance();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(500,750));
+        setPreferredSize(new Dimension(500,800));
         setResizable(true);
         setLocation(1000,50);
         setFocusable(true);
-                
+
         // Insert a Panel
-        
+
         _jpanel = new JPanel();
         _jpanel.setBorder(new LineBorder(Color.LIGHT_GRAY,3));
         GridBagConstraints c = new GridBagConstraints();
@@ -144,16 +150,16 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         //_jpanel.setLayout(bl);
         //FlowLayout    bl=new FlowLayout(FlowLayout.CENTER);
         //_jpanel.setLayout(bl);
-        
+
         _jpanel.setLayout(new GridBagLayout());
         _file_name_label = new JLabel("");
         c.gridy=0;
         c.gridwidth=4;
         _jpanel.add(_file_name_label,c);
-        
+
         c.gridy++;
         c.gridx=0;
-        
+
         _speedSlider = new JSlider(0,20,10);
         _speedSlider.setMajorTickSpacing(10);
         _speedSlider.setMinorTickSpacing(1);
@@ -171,30 +177,30 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         _load_demo_file_but = new JButton("demo file");
         _load_demo_file_but.setFont(newButtonFont);
         _midi_file_mode_but = new JRadioButton("midi file");
-    	_KB_mode_but = new JRadioButton("ext keyboard");
-    	ButtonGroup group = new ButtonGroup();
-    	group.add(_midi_file_mode_but);
-    	group.add(_KB_mode_but);
+        _KB_mode_but = new JRadioButton("ext keyboard");
+        ButtonGroup group = new ButtonGroup();
+        group.add(_midi_file_mode_but);
+        group.add(_KB_mode_but);
 
-		String pp = null;
-		try {
-			pp = (new File(".")).getCanonicalPath();
-		} catch (IOException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
-		}
+        String pp = null;
+        try {
+            pp = (new File(".")).getCanonicalPath();
+        } catch (IOException e3) {
+            // TODO Auto-generated catch block
+            e3.printStackTrace();
+        }
 
-		//System.out.println("pp : "+pp);
+        //System.out.println("pp : "+pp);
 
-		//File dir = new File("/"+pp+"/Midi/");
-		//File dir = new File("/"+pp+"/input_midi_files/");
-		//File dir = new File("/"+pp+"/test/");
-		File demo_files_dir = new File("/"+pp+"/input_files/");
-		System.out.println("Midi file directory : "+demo_files_dir);
-		ArrayList<String> file_list = new ArrayList<String>();
-		for (String name : demo_files_dir.list()) {
-			if (FileUtils.is_midi(name)) file_list.add(name);
-		}
+        //File dir = new File("/"+pp+"/Midi/");
+        //File dir = new File("/"+pp+"/input_midi_files/");
+        //File dir = new File("/"+pp+"/test/");
+        File demo_files_dir = new File("/"+pp+"/input_files/");
+        System.out.println("Midi file directory : "+demo_files_dir);
+        ArrayList<String> file_list = new ArrayList<String>();
+        for (String name : demo_files_dir.list()) {
+            if (FileUtils.is_midi(name)) file_list.add(name);
+        }
 //		String[] file_table = new String[file_list.size()+1];
 //		file_table[0] = "<select a midi file in the list>";
 //		for (int i=0;i<file_list.size();i++) file_table[i+1] = file_list.get(i);
@@ -207,10 +213,10 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         _jpanel.add(new JLabel("Tempo"),c);
         c.gridy++;
         _jpanel.add(_speedSlider,c);
-        
+
         c.gridy++;
         _jpanel.add(_cursor,c);
-        
+
         c.gridy++;
         c.gridx=0;
         c.gridwidth=1;
@@ -225,7 +231,7 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         _record_but.setEnabled(false);
         c.gridx=0;
         c.gridy++;
-        
+
         c.gridwidth=1;
         _jpanel.add(_load_demo_file_but,c);
         c.gridx+=1;
@@ -234,24 +240,24 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         _jpanel.add(_midi_file_mode_but,c);
         _midi_file_mode_but.setSelected(true);
         c.gridx+=1;
-        
+
         _jpanel.add(_KB_mode_but,c);
         c.gridy++;
         c.gridx=0;
         c.gridwidth=4;
         _jpanel.add(new JSeparator(SwingConstants.HORIZONTAL),c);
         c.gridy++;
-        
+
         c.gridwidth=2;
         c.gridx=0;
         _jpanel.add(new JLabel("Intervallic structure"),c);
         c.gridx=2;
         _jpanel.add(new JLabel("Scale"),c);
-        
+
         c.gridy++;
-        
+
         c.gridx=0;
-        
+
         _complex_box  = new JComboBox(STIntervallicStructure.get_SI_3_12_7_UTF().toArray());
         _complex_box.setSelectedIndex(10);
         _tona_box = new JComboBox(Scale.get_chromatic_scale_list().toArray());
@@ -259,7 +265,7 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         _jpanel.add(_complex_box,c);
         c.gridx=2;
         _jpanel.add(_tona_box,c);
-        
+
         c.gridx=0;
         c.gridy+=2;
 
@@ -282,7 +288,7 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         c.gridheight=2;
         c.ipadx=0;
         c.fill=GridBagConstraints.VERTICAL;
-                
+
         _trace_but = new JButton((_parameters.get_trace_length_to_draw()==0) ? "Trace mode":"Trace off");
         _extra_voice_but = new JButton((_parameters.is_draw_extra_voice()) ? "Harmonization OFF":"Harmonization ON");
         //_subgrid_but = new JButton((_parameters.is_draw_subgrid()) ? "Normal Grid":"Subgrid");
@@ -290,35 +296,38 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         _circle_but_1 = new JButton("circle 1");
         _circle_but_5 = new JButton("circle 5");
         _3D_complex_but = new JButton("3D complex");
-                
+
         _compactness_degree_box = new JComboBox(get_compactness_string_table(11));
         _compactness_degree_box.setSelectedIndex(1);
-        
+
         _dim_complex_box = new JComboBox(get_dim_complex_int_table(11));
         _dim_complex_box.setSelectedIndex(1);
-        
+
         _abs_Compliance_but = new JButton("absolute compactness");
         _compute_comp_but = new JButton("compute compactness");
         _HLarge_Compliance_but = new JButton("Large Compliance");
         _HConstraint_Compliance_but = new JButton("Constraint Compliance");
         _musification_but = new JButton("Musification");
         _path_transformation_but = new JButton("Compute transformation");
-        
+
+        _rotate_but = new JButton("rotate");
+        _mirror_but = new JButton("mirror");
+
         c.fill=GridBagConstraints.HORIZONTAL;
-        
+
         c.gridx=0;
         c.gridy++;
         c.gridwidth=2;
-        
+
         _jpanel.add(_trace_but,c);
 
         c.gridx=2;
         _jpanel.add(_extra_voice_but,c);
-        
+
         c.gridy++;
 //        c.gridx=0;
 //        _jpanel.add(_extra_voice_but,c);
-        
+
 //        c.gridx++;
 //        _jpanel.add(_subgrid_but,c);
 
@@ -335,6 +344,14 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         _jpanel.add(_graph_but,c);
         c.gridy++;
 
+        c.gridy++;
+        c.gridx=0;
+        c.gridwidth=2;
+        _jpanel.add(_rotate_but,c);
+        c.gridx=2;
+        _jpanel.add(_mirror_but,c);
+        c.gridy++;
+
         c.gridx=0;
         c.gridy++;
         c.gridwidth=4;
@@ -348,36 +365,36 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
 
         c.gridy+=2;
         c.gridwidth=2;
-        
+
         JLabel compactness_dimension_label = new JLabel("compactness dimension",JLabel.CENTER);
         vertComp.setFont(new Font("Arial", Font.PLAIN, 14));
         _jpanel.add(compactness_dimension_label,c);
 
         c.gridx+=2;
-        
+
         JLabel complex_dimension_label = new JLabel("complexes dimension",JLabel.CENTER);
         vertComp.setFont(new Font("Arial", Font.PLAIN, 14));
         _jpanel.add(complex_dimension_label,c);
-        
+
         c.gridx=0;
         c.gridy+=2;
 
         _jpanel.add(_compactness_degree_box,c);
-                
+
         c.gridx+=2;
         _jpanel.add(_dim_complex_box,c);
-        
+
         c.gridx=0;
-        
+
         c.gridy+=2;
-        
+
         c.gridwidth=4;
         _jpanel.add(_compute_comp_but,c);
         c.gridy+=2;
         _jpanel.add(_abs_Compliance_but,c);
         c.gridy+=2;
-        
-        
+
+
         _jpanel.add(new JSeparator(SwingConstants.HORIZONTAL),c);
         c.gridy+=2;
         JLabel path_trans_label = new JLabel("Trajectory Transformation",JLabel.CENTER);
@@ -390,7 +407,7 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         JLabel origin_tonnetz_label = new JLabel("Origin complex",JLabel.CENTER);
         origin_tonnetz_label.setFont(new Font("Arial", Font.PLAIN, 14));
         _jpanel.add(origin_tonnetz_label,c);
-        
+
         c.gridx+=2;
         JLabel destination_tonnetz_label = new JLabel("Destination complex",JLabel.CENTER);
         destination_tonnetz_label.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -399,23 +416,23 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         c.gridx=0;
         c.gridy+=2;
         c.gridwidth=1;
-        
-    	_origin_complex_box = new JComboBox(STIntervallicStructure.get_SI_3_12_7_UTF().toArray());
-    	_origin_tona_box = new JComboBox(Scale.get_chromatic_scale_list().toArray());
-    	_destination_complex_box = new JComboBox(STIntervallicStructure.get_SI_3_12_7_UTF().toArray());
-    	_destination_tona_box = new JComboBox(Scale.get_chromatic_scale_list().toArray());
 
-    	_origin_complex_box.setSelectedIndex(10);
-    	_destination_complex_box.setSelectedIndex(0);
-    	
-    	_jpanel.add(_origin_complex_box,c);
-    	c.gridx++;
-    	_jpanel.add(_origin_tona_box,c);
-    	c.gridx++;
-    	_jpanel.add(_destination_complex_box,c);
-    	c.gridx++;
-    	_jpanel.add(_destination_tona_box,c);
-    	
+        _origin_complex_box = new JComboBox(STIntervallicStructure.get_SI_3_12_7_UTF().toArray());
+        _origin_tona_box = new JComboBox(Scale.get_chromatic_scale_list().toArray());
+        _destination_complex_box = new JComboBox(STIntervallicStructure.get_SI_3_12_7_UTF().toArray());
+        _destination_tona_box = new JComboBox(Scale.get_chromatic_scale_list().toArray());
+
+        _origin_complex_box.setSelectedIndex(10);
+        _destination_complex_box.setSelectedIndex(0);
+
+        _jpanel.add(_origin_complex_box,c);
+        c.gridx++;
+        _jpanel.add(_origin_tona_box,c);
+        c.gridx++;
+        _jpanel.add(_destination_complex_box,c);
+        c.gridx++;
+        _jpanel.add(_destination_tona_box,c);
+
 //        _origin_tonnetz_box = new JComboBox(PlanarUnfoldedTonnetz.getZ7_and_Z12_HexaTonnetzNameTable());
 //        _origin_tonnetz_box.setSelectedIndex(10);
 //        _jpanel.add(_origin_tonnetz_box,c);
@@ -424,36 +441,36 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
 //        _destination_tonnetz_box = new JComboBox(PlanarUnfoldedTonnetz.getZ7_and_Z12_HexaTonnetzNameTable());
 //        _destination_tonnetz_box.setSelectedIndex(10);
 //        _jpanel.add(_destination_tonnetz_box,c);
-        
+
         c.gridx=0;
-        
+
         c.gridwidth=2;
         c.gridy+=2;
-        
+
         _jpanel.add(new JLabel("Rotation",JLabel.CENTER),c);
         c.gridx+=2;
         _rotation_field = new JTextField("0");
         _jpanel.add(_rotation_field,c);
-        
+
         c.gridx=0;
         c.gridy+=2;
-        
+
         _jpanel.add(new JLabel("North translation",JLabel.CENTER),c);
         c.gridx+=2;
         _n_translation_field = new JTextField("0");
         _jpanel.add(_n_translation_field,c);
-        
+
         c.gridx=0;
         c.gridy+=2;
-        
+
         _jpanel.add(new JLabel("North-east translation",JLabel.CENTER),c);
         c.gridx+=2;
         _ne_translation_field = new JTextField("0");
         _jpanel.add(_ne_translation_field,c);
-        
+
         c.gridx=0;
         c.gridy+=2;
-        
+
 
         c.gridwidth=4;
         _jpanel.add(_path_transformation_but,c);
@@ -461,77 +478,77 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         // Sizing and displaying the window
         add(_jpanel);
         //setContentPane(_jpanel);
-        
+
         addKeyListener(this);
         pack();
         setVisible(true);
 
+    }
+
+    public void set_chordToDisplay(String _toDisplay) {
+        _d_chord_jlabel.setText(_toDisplay);
+    }
+
+    public void set_tonnetzToDisplay(String _toDisplay) {
+        _d_tonnetz_jlabel.setText(_toDisplay);
+    }
+
+    public void set_file_name_to_display(String _toDisplay) {
+        _file_name_label.setText(_toDisplay);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent evt) {
+        HexaChord.getInstance().keyPressed(evt);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent evt) {
+        HexaChord.getInstance().keyReleased(evt);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent evt) {
+        HexaChord.getInstance().keyTyped(evt);
+    }
+
+    public synchronized void update_cursor(float f) {
+        _jumped = false;
+        _cursor.setValue((int)(f*100));
+        _jumped = true;
+    }
+
+    public boolean is_jumped() {
+        return _jumped;
+    }
+
+    public void set_jumped(boolean j){
+        _jumped = j;
+    }
+
+    public String[] get_compactness_string_table(int n){
+        String[] string_table = new String[n];
+        for (int i =1;i<=n;i++){
+            string_table[i-1]=i+"-compactness";
         }
-	
-	public void set_chordToDisplay(String _toDisplay) {
-		_d_chord_jlabel.setText(_toDisplay);
-	}
-	
-	public void set_tonnetzToDisplay(String _toDisplay) {
-		_d_tonnetz_jlabel.setText(_toDisplay);
-	}
+        return string_table;
+    }
 
-	public void set_file_name_to_display(String _toDisplay) {
-		_file_name_label.setText(_toDisplay);
-	}
+    public Integer[] get_dim_complex_int_table(int n){
+        Integer[] integer_table = new Integer[n];
+        for (int i =1;i<=n;i++){
+            integer_table[i-1]=i;
+        }
+        return integer_table;
+    }
 
-	@Override
-	public void keyPressed(KeyEvent evt) {
-		HexaChord.getInstance().keyPressed(evt);
-	}
 
-	@Override
-	public void keyReleased(KeyEvent evt) {
-		HexaChord.getInstance().keyReleased(evt);
-	}
+    public Parameters get_parameters() {
+        return _parameters;
+    }
 
-	@Override
-	public void keyTyped(KeyEvent evt) {
-		HexaChord.getInstance().keyTyped(evt);
-	}
-	
-	public synchronized void update_cursor(float f) {
-		_jumped = false;
-		_cursor.setValue((int)(f*100));
-		_jumped = true;
-	}
-
-	public boolean is_jumped() {
-		return _jumped;
-	}
-	
-	public void set_jumped(boolean j){
-		_jumped = j;
-	}
-	
-	public String[] get_compactness_string_table(int n){
-		String[] string_table = new String[n];
-		for (int i =1;i<=n;i++){
-			string_table[i-1]=i+"-compactness";
-		}
-		return string_table;
-	}
-	
-	public Integer[] get_dim_complex_int_table(int n){
-		Integer[] integer_table = new Integer[n];
-		for (int i =1;i<=n;i++){
-			integer_table[i-1]=i;
-		}
-		return integer_table;
-	}
-	
-	
-	public Parameters get_parameters() {
-		return _parameters;
-	}
-	
-	public void buttons_addActionListener(HexaChord h){
-		_play_but.addActionListener(h);
+    public void buttons_addActionListener(HexaChord h){
+        _play_but.addActionListener(h);
         _stop_but.addActionListener(h);
         _record_but.addActionListener(h);
         _load_demo_file_but.addActionListener(h);
@@ -561,23 +578,25 @@ public class InfoBox extends JFrame implements KeyListener,PosPitchSetStreamList
         _origin_complex_box.addActionListener(h);
         _destination_complex_box.addActionListener(h);
         _path_transformation_but.addActionListener(h);
-	}
+        _mirror_but.addActionListener(h);//adding action listeners to the buttons
+        _rotate_but.addActionListener(h);
+    }
 
-	public void check_tona_box(JComboBox tona_box, int N){
-		if (N==7){
-			tona_box.removeAllItems();
-			for (Scale s : Scale.get_diatonic_scales()) tona_box.addItem(s);
-		}
-		if (N==12){
-			tona_box.removeAllItems();
-			tona_box.addItem(Scale.get_chromatic_scale());
-		}
-	}
+    public void check_tona_box(JComboBox tona_box, int N){
+        if (N==7){
+            tona_box.removeAllItems();
+            for (Scale s : Scale.get_diatonic_scales()) tona_box.addItem(s);
+        }
+        if (N==12){
+            tona_box.removeAllItems();
+            tona_box.addItem(Scale.get_chromatic_scale());
+        }
+    }
 
-	@Override
-	public void pos_change(long new_pos) {
-		update_cursor((float)new_pos/(float)Parameters.getInstance().get_colStream().get_duration());
-	}
-	
-	
+    @Override
+    public void pos_change(long new_pos) {
+        update_cursor((float)new_pos/(float)Parameters.getInstance().get_colStream().get_duration());
+    }
+
+
 }
