@@ -83,4 +83,5 @@ choco install openjdk --version=17.0.8
 
 ## Run the executable file
 This is way easier than MacOS. Open the downloaded directory "HexaChord" and double click the HexaChord.bat file.
+
 Voila! You should see the HexaChord GUI pop up.
