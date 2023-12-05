@@ -13,7 +13,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 17.0.8+9-LTS-211, mixed mode, sharing)
 ```
 If it doesn't, install Java by following the instructions:
 
-The easiest option is to use sdkman; it makes it easy to install and switch between installations of Java/Gradle. Follow the steps as listed on the website to get it installed:
+The easiest option is to use sdkman; it makes it easy to install and switch between installations of Java. Follow the steps as listed on the website to get it installed:
 https://sdkman.io/
 
 then:
